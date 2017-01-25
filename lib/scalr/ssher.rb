@@ -22,21 +22,28 @@ module Scalr
       return unless check_key_path
 
       cmd = params.has_key?('cmd') ? params['cmd'].value : 'ssh'
-      command = "#{cmd} -i #{key_path} -L #{tunnel_spec} -N root@#{server.external_ip}"
+      tunnel_command = "#{cmd} -i #{key_path} -L #{tunnel_spec} -N root@#{server.external_ip}"
 
       require 'open3'
 
-      puts "Executing `#{command}` in background"
+      puts "Executing `#{tunnel_command}` in background"
 
-      Open3.popen2(command) do |_stdin, _stdout, wait_thr|
-        if after_command
-          sleep ENV.fetch("SCALR_TUNNEL_WAIT", 3).to_i # give ssh a chance to open
+      # don't send int signals to the tunnel
+      trap("INT", "IGNORE")
 
-          puts "Executing `#{after_command}` in foreground`"
-          system after_command
-          Process.kill("TERM", wait_thr.pid)
-        end
-      end
+      tunnel_pid = spawn(tunnel_command)
+      # give ssh a chance to open
+      sleep ENV.fetch("SCALR_TUNNEL_WAIT", 3).to_i
+
+      puts "Executing `#{after_command}` in foreground`"
+      command_pid = spawn(after_command)
+
+      trap("INT") {
+        Process.kill("INT", command_pid)
+      }
+
+      Process.wait(command_pid)
+      Process.kill("TERM", tunnel_pid)
     end
 
     def open_db_tunnel(db_host, psql_command, port = 5433)
