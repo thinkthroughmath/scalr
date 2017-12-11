@@ -627,6 +627,9 @@ Main {
       if action == :farm_launch
         puts "Result: #{response.content}"
       else
+        puts "WARNING!! This just incremented the minimum instance setting for this role on the farm!!
+        It will not go down automatically so please either manually decrease the setting via the web portal,
+          or terminate the instance with the -d option when you are done"
         puts "Server ID: #{response.content}"
       end
     end
@@ -656,9 +659,13 @@ Main {
       description 'I am certain that I want to shutdown the given farm or role'
     end
 
+    option 'decrease_min_instances_setting, -d' do
+      description 'If set, the minimim instances count will be decremented by 1'
+    end
+
     def run
 
-      options = Scalr::Caller.collect_options(params, [:farm_id])
+      options = Scalr::Caller.collect_options(params, [:farm_id, :decrease_min_instances_setting])
       options[:keep_ebs] = false
       options[:keep_eip] = false
       options[:keep_dns_zone] = false
