@@ -12,7 +12,7 @@ module Scalr
       return unless check_key_path
 
       cmd = params.has_key?('cmd') ? params['cmd'].value : 'ssh'
-      command = "#{cmd} -i #{key_path} root@#{server.external_ip} #{remote_command}"
+      command = "#{cmd} -i #{key_path} -o 'IdentitiesOnly yes' root@#{server.external_ip} #{remote_command}"
       puts "Executing `#{command}`"
       exec command
     end
