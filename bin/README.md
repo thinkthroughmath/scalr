@@ -12,7 +12,7 @@
   gemsets in which you'd like to use ttmscalr.
 * Build and install the scalr gem:
   * `gem build scalr.gemspec`
-  * `gem install ./scalr-0.2.3.gem`
+  * `gem install ./scalr-0.2.28.gem`
 * Get and configure API credentials (see: [Scalr API Credentials](#scalr-api-credentials))
 * Now you should be able to run `ttmscalr farm:list`
 
@@ -31,7 +31,7 @@ For a more permanent solution you might have in your `~/.bashrc` or
     NODE_HOME=~/tools/node/current
     ...
 
-    export PATH=~/bin:$SCALR_HOME/bin:$NODE_HOME/bin
+    export PATH=~/bin:$SCALR_HOME/bin:$NODE_HOME/bin:$PATH
 
 ### Scalr API Credentials
 
