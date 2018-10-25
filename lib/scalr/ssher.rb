@@ -12,7 +12,7 @@ module Scalr
       return unless check_key_path
 
       cmd = params.has_key?('cmd') ? params['cmd'].value : 'ssh'
-      command = "#{cmd} -i #{key_path} root@#{server.external_ip} #{remote_command}"
+      command = "#{cmd} -i #{key_path} root@#{get_ip} #{remote_command}"
       puts "Executing `#{command}`"
       exec command
     end
@@ -22,7 +22,7 @@ module Scalr
       return unless check_key_path
 
       cmd = params.has_key?('cmd') ? params['cmd'].value : 'ssh'
-      command = "#{cmd} -i #{key_path} -L #{tunnel_spec} -N root@#{server.external_ip}"
+      command = "#{cmd} -i #{key_path} -L #{tunnel_spec} -N root@#{get_ip}"
       puts "Executing `#{command}`"
 
       if after_command
@@ -55,7 +55,7 @@ module Scalr
       return unless identify_server
       return unless check_key_path
 
-      command = "scp -i #{key_path} root@#{server.external_ip}:#{download_path} #{local_path}"
+      command = "scp -i #{key_path} root@#{get_ip}:#{download_path} #{local_path}"
       puts "Executing `#{command}`"
       exec command
     end
@@ -70,7 +70,7 @@ module Scalr
       return unless identify_server
       return unless check_key_path
 
-      command = "scp -i #{key_path} #{local_path} root@#{server.external_ip}:#{download_path}"
+      command = "scp -i #{key_path} #{local_path} root@#{get_ip}:#{download_path}"
       puts "Executing `#{command}`"
       exec command
     end
@@ -117,6 +117,10 @@ module Scalr
         @exit_status = 1
       end
       @server
+    end
+
+    def get_ip
+      params.has_key?('internal_ip') && params['internal_ip'].value ? server.internal_ip : server.external_ip
     end
   end
 end

@@ -987,6 +987,12 @@ Main {
       DESC
     end
 
+    option 'internal_ip, -i' do
+      description 'Use the Private IP for SSH, rather than the default public IP'
+      argument :optional
+    end
+
+
     option 'out' do
       description 'Push the file out to the server instead of pulling the file in from the server (default)'
     end
@@ -1051,6 +1057,11 @@ Main {
       description 'Role with server, required unless using role name with "server" arg'
     end
 
+    option 'internal_ip, -i' do
+      description 'Use the Private IP for SSH, rather than the default public IP'
+      argument :optional
+    end
+
     def run
       ssher = Scalr::Ssher.new(params)
       ssher.execute
@@ -1078,6 +1089,12 @@ Main {
       argument :optional
       description 'Role with server, required unless using role name with "server" arg'
     end
+
+    option 'internal_ip, -i' do
+      description 'Use the Private IP for SSH, rather than the default public IP'
+      argument :optional
+    end
+
 
     def run
       params['cmd'] = Value.new('sftp')
