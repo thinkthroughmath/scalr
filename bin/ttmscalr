@@ -987,8 +987,8 @@ Main {
       DESC
     end
 
-    option 'internal_ip, -i' do
-      description 'Use the Private IP for SSH, rather than the default public IP'
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH, rather than the default private IP'
       argument :optional
     end
 
@@ -1057,8 +1057,8 @@ Main {
       description 'Role with server, required unless using role name with "server" arg'
     end
 
-    option 'internal_ip, -i' do
-      description 'Use the Private IP for SSH, rather than the default public IP'
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH, rather than the default private IP'
       argument :optional
     end
 
@@ -1090,8 +1090,8 @@ Main {
       description 'Role with server, required unless using role name with "server" arg'
     end
 
-    option 'internal_ip, -i' do
-      description 'Use the Private IP for SSH, rather than the default public IP'
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH, rather than the default private IP'
       argument :optional
     end
 

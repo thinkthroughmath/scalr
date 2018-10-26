@@ -120,7 +120,7 @@ module Scalr
     end
 
     def get_ip
-      params.has_key?('internal_ip') && params['internal_ip'].value ? server.internal_ip : server.external_ip
+      params.has_key?('external_ip') && params['external_ip'].value ? server.external_ip : server.internal_ip
     end
   end
 end
