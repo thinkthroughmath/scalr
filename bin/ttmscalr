@@ -989,7 +989,6 @@ Main {
 
     option 'external_ip, -e' do
       description 'Use the Public IP for SSH, rather than the default private IP'
-      argument :optional
     end
 
 
@@ -1059,7 +1058,6 @@ Main {
 
     option 'external_ip, -e' do
       description 'Use the Public IP for SSH, rather than the default private IP'
-      argument :optional
     end
 
     def run
@@ -1092,7 +1090,6 @@ Main {
 
     option 'external_ip, -e' do
       description 'Use the Public IP for SSH, rather than the default private IP'
-      argument :optional
     end
 
 
@@ -1120,6 +1117,10 @@ Main {
     option 'farm, -f' do
       argument :required
       description 'Farm containing role + server'
+    end
+
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH, rather than the default private IP'
     end
 
     def run
@@ -1152,6 +1153,10 @@ Main {
     option 'command, -c' do
       argument :required
       description 'Command to execute on the remote server'
+    end
+
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH, rather than the default private IP'
     end
 
     def run
@@ -1298,6 +1303,10 @@ Main {
       argument :optional
       cast :int
       description 'Local port to host the tunnel'
+    end
+
+    option 'external_ip, -e' do
+      description 'Use the Public IP for SSH tunnel, rather than the default private IP'
     end
 
     def run
